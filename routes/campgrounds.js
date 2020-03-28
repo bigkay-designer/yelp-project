@@ -81,7 +81,6 @@ router.get('/index/:id', (req, res) => {
         req.flash('error', 'campground not found')
         res.redirect('/index')
       } else {
-        log(foundCamp);
         res.render('./campground/showDesc', { campground: foundCamp });
       }
     });
@@ -102,9 +101,9 @@ router.put('/index/:id', middleware.authorizedUser, (req, res) => {
       req.flash('error', 'Invalid address');
       return res.redirect('back');
     }
-    req.body.campground.lat = data[0].latitude;
-    req.body.campground.lng = data[0].longitude;
-    req.body.campground.location = data[0].formattedAddress;
+    req.body.lat = data[0].latitude;
+    req.body.lng = data[0].longitude;
+    req.body.location = data[0].formattedAddress;
     campground.findByIdAndUpdate(req.params.id, req.body, (err, updated) => {
       if (err) {
         log(err);
