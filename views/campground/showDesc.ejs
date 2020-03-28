@@ -1,0 +1,96 @@
+<%- include('../partials/header') %> <%- include('../partials/nav') %>
+
+<main class="show-desc-main">
+  <!-- <div class="show-desc-header">
+    <h1>get more info</h1>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+  </div> -->
+
+  <aside class="aside">
+    <div id="map">hhhh</div>
+  </aside>
+
+  <section class="show-main-sec">
+    <div class="show-wrapper">
+      <div class="content">
+        <img src="<%= campground.image%>" alt="" />
+        <div class="show-desc-content">
+          <h3><%= campground.price%></h3>
+          <h1><%= campground.name%></h1>
+          <p><%= campground.desc%></p>
+          <h4>
+            created by
+            <span class="created-by"><%= campground.author.username %></span>
+          </h4>
+          <% if(currentuser && campground.author.id.equals(currentuser._id)){ %>
+          <div class="edit">
+            <a class="edit-tag" href="/index/<%= campground._id%>/edit">edit</a>
+
+            <form
+              action="/index/<%= campground._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="del-btn">delete</button>
+            </form>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="comments">
+        <h4>
+          <a href="/index/<%=campground._id%>/comment/newcomment"
+            >add a comment</a
+          >
+        </h4>
+        <% campground.comments.forEach((comment)=>{ %> <% if(currentuser){%>
+        <p class="strong"><%= comment.author.username %></p>
+        <p><%- comment.text %></p>
+        <!-- <p><%= comment.date%></p> -->
+        <!-- comment statement -->
+        <% if(currentuser && comment.author.id.equals(currentuser._id)){ %>
+        <div class="edit edit-comment">
+          <a class="edit-tag" href="/index/<%= campground._id%>/edit">edit</a>
+
+          <form
+            action="/index/<%= campground._id%>/comment/<%= comment._id%>?_method=DELETE"
+            method="POST"
+          >
+            <button class="del-btn">delete</button>
+          </form>
+        </div>
+        <%}%>
+        <%}%> <% }) %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  function initMap() {
+    let lat = <%= campground.lat %>;
+    let lng = <%= campground.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 8,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= campground.name %><br />
+      <%= campground.location %></strong>
+      <p><%= campground.desc %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
+<%- include ('../partials/footer')%>

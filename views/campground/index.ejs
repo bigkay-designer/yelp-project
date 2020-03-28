@@ -1,0 +1,29 @@
+<%- include('../partials/header') %> <%- include('../partials/nav') %>
+
+<div class="camp-container">
+  <header class="camp-header">
+    <h1>campground finest</h1>
+    <button><a href="/index/new">Add more camps</a></button>
+  </header>
+
+  <main class="camp-data">
+    <div class="camp-wrapper">
+      <% campground.forEach((camp) =>{ %>
+      <div class="camp-img-txt">
+        <img src="<%= camp.image%>" alt="" />
+        <div class="camp-content">
+          <h1><%= camp.name %></h1>
+          <p>
+          
+            <%= camp.desc.substring(0, 50)%>
+            .....
+          </p>
+          <a href="/index/<%= camp._id%>">read more</a>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </main>
+</div>
+
+<%-include ('../partials/footer')%>

@@ -1,0 +1,25 @@
+<%- include ('../partials/header') %> <%- include ('../partials/nav') %>
+
+<div class="form-container">
+  <header class="form-header">
+    <h1 class="comment-title">Add a comment to <%= campground.name%></h1>
+  </header>
+
+  <main class="form-main">
+    <div class="form">
+      <form action="/index/<%= campground._id%>/comment" method="POST">
+        <!-- <input type="text" placeholder="author" name="comment[author]" required /> -->
+        <textarea
+          name="comment[text]"
+          class="textarea"
+          cols="30"
+          rows="10"
+          placeholder="comment"
+        ></textarea>
+        <input type="submit" />
+      </form>
+    </div>
+  </main>
+</div>
+
+<%-include ('../partials/footer')%>

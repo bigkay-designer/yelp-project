@@ -1,0 +1,20 @@
+<%- include ('partials/header')%> <%- include ('partials/nav')%>
+
+<main class="main-new">
+  <section class="form-sec">
+    <div class="form-title">
+      <h1>login</h1>
+    </div>
+    <form class="new-form" action="/login" method="POST">
+      <label for="username">username</label>
+      <input type="text" name="username" required />
+      <label for="password">password</label>
+      <input type="password" name="password" id="">
+      <div class="new-btn">
+        <button type="submit">log in</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<%- include ('partials/footer')%>

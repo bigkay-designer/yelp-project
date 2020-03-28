@@ -1,0 +1,42 @@
+<%- include('../partials/header') %> <%- include('../partials/nav') %>
+
+<div class="form-container">
+  <header class="form-header">
+    <h1>edit camp</h1>
+  </header>
+
+  <main class="form-main">
+    <div class="form">
+      <form action="/index/<%= campground._id%>?_method=PUT" method="POST">
+        <input
+          type="text"
+          placeholder="name"
+          name="name"
+          required
+          value="<%=campground.name %>"
+        />
+        <input type="number" placeholder="price" name="price" value="<%= campground.price%>" min="0.01" step="0.01" required />
+        <input
+          type="text"
+          placeholder="image url"
+          name="image"
+          required
+          value="<%= campground.image %>"
+        />
+        <textarea
+          name="desc"
+          class="textarea"
+          cols="30"
+          rows="10"
+          placeholder="Description"
+        >
+<%= campground.desc%></textarea
+        >
+        <input class="form-control" type="text" name="location" id="location" value="<%= campground.location %>">
+        <input type="submit" value="Edit" />
+      </form>
+    </div>
+  </main>
+</div>
+
+<%-include ('../partials/footer')%>
